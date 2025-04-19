@@ -4,7 +4,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // temp path
-        String path = "../file0.txt";
+        String path = "test_data/file0.txt";
 
         // Note:  Double backquote is to avoid compiler
         // interpret words
@@ -23,6 +23,9 @@ public class App {
           	System.out.println(st);
 
         bfro.close();
-        System.out.println("Program ending, have a nice day.");
+    
+        /*
+         * TODO: parse data
+         */
     }
 }
