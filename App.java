@@ -16,16 +16,27 @@ public class App {
 
         // Declaring a string variable
         String st;
+        String[] parts = null;
       
-        // Condition holds true till
-        // there is character in a string
-        while ((st = bfro.readLine()) != null)
-          	System.out.println(st);
+        // read input file
+        while ((st = bfro.readLine()) != null) {
+            // Example: Split the line by spaces
+            parts = st.split("\n");
+            
+            // Process each part
+            for (String part : parts) {
+                System.out.println(part); // Print each parsed part
+            }
+        }
 
+
+        //System.out.println(st);
         bfro.close();
     
         /*
          * TODO: parse data
          */
+
+        
     }
 }

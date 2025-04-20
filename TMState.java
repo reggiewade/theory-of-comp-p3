@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 public class TMState {
-    private Map<Character, Transition> transitions;
+    private Map<Integer, Transition> transitions;
     // assuming states are 0, 1, 2, ..., etc
     int name;
 
@@ -28,7 +28,7 @@ public class TMState {
      * @param symbol is the symbol to transition to toState
      * @param transition is an object that holds transition and move data
      */
-    public void addTransition(char symbol, Transition transition) {
+    public void addTransition(Integer symbol, Transition transition) {
         transitions.put(symbol, transition);
     }
 
@@ -37,7 +37,7 @@ public class TMState {
      * @param symbol is the symbol to transition to toState
      * @return the next from the symbol
      */
-    public Transition toStates(char symbol) {
+    public Transition toStates(Integer symbol) {
         return transitions.get(symbol);
     }
 }
