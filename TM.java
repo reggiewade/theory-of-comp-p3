@@ -23,6 +23,10 @@ public class TM {
         sigma.add(a);
     }
 
+    public TMState getStart () {
+        return startState;
+    }
+
     public void setStart () {
         /*
          * set start state to state at lowest key val
@@ -47,13 +51,14 @@ public class TM {
         return true;
     }
 
-    public boolean addTransition(Integer fromState, Set<Integer> toStates, Integer onSymb, char move) {
+    public boolean addTransition(Integer fromState, Integer toState, Integer onSymb, char move) {
         if (!states.containsKey(fromState) || !sigma.contains(onSymb)) return false;
         TMState from = states.get(fromState);
-        for (Integer toState : toStates) {
-            if (!states.containsKey(toState)) return false;
-            from.addTransition(onSymb, new Transition(move, states.get(toState)));
+        if (!states.containsKey(toState)){
+            return false;
         }
+        from.addTransition(onSymb, new Transition(move, states.get(toState)));
+        
         return true;
     }
 
