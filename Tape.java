@@ -6,7 +6,8 @@ import java.util.HashMap;
  * The tape is implemented as a HashMap that stores characters at integer positions.
  * The tape head starts at position 0.
  *
- * @author Vladyslav (Vlad) Maliutin
+ * @author  Vladyslav (Vlad) Maliutin
+ *          Reggie Wade
  */
 public class Tape {
     private HashMap<Integer, Character> tape = new HashMap<>();
