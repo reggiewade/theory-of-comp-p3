@@ -54,9 +54,9 @@ public class TMSimulator {
         List<String> slicedList = lines.subList(2, lines.size());
         while ((currState + 1) != numStates) {
             for (int i = counter; i < sigmaLen + counter; i++) {
-                System.out.println(i - counter);
+                int onSymb = i - counter;
                 String[] parts = slicedList.get(i).split(",");
-                tm.addTransition(currState, Integer.valueOf(parts[0]), Integer.valueOf(parts[1]), parts[2].charAt(0));
+                tm.addTransition(currState, Integer.valueOf(parts[0]), onSymb, Integer.valueOf(parts[1]), parts[2].charAt(0));
             }
             currState++;
             counter += sigmaLen;

@@ -10,10 +10,12 @@
 public class Transition {
     // store move and next state data
     char move;
+    int writeSymb;
     TMState state;
 
-    public Transition (char move, TMState state) {
+    public Transition (char move, int writeSymb, TMState state) {
         this.move = move;
+        this.writeSymb = writeSymb;
         this.state = state;
     }
 }

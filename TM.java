@@ -95,16 +95,17 @@ public class TM {
      * @param fromState the current state
      * @param toState the next state
      * @param onSymb the symbol read on the tape
+     * @param tranSymb the symbol to transition to next state
      * @param move the direction to move ('L' or 'R')
      * @return true if the transition was successfully added
      */
-    public boolean addTransition(Integer fromState, Integer toState, Integer onSymb, char move) {
+    public boolean addTransition(Integer fromState, Integer toState, Integer onSymb, Integer writeSymb, char move) {
         if (!states.containsKey(fromState) || !sigma.contains(onSymb)) return false;
         TMState from = states.get(fromState);
         if (!states.containsKey(toState)){
             return false;
         }
-        from.addTransition(onSymb, new Transition(move, states.get(toState)));
+        from.addTransition(onSymb, new Transition(move, writeSymb, states.get(toState)));
         
         return true;
     }
@@ -133,21 +134,29 @@ public class TM {
         return state != null && state.equals(finalState);
     }
 
+    // TODO: need to test this (i hope it work)
     public void runTM () {
-        // set state
+        // set starting state
         int currState = startState.name;
-        // get current symbol
-        int symb = tape.read();
-        // get next state
-        Transition info = getNextState(currState, symb);
-        // write to current state
-        //tape.write();
-        // move left or right
-        if (info.move == 'R') {
-            tape.moveRight();
-        }
-        else {
-            tape.moveLeft();
+
+        while (!isFinal(currState)) {
+            // get current symbol
+            int symb = tape.read();
+            // get next state
+            Transition info = getNextState(currState, symb);
+            if (info == null) {
+                throw new IllegalStateException("No valid transition found for state " + currState + " and symbol " + symb);
+            }
+            // write to current state
+            tape.write(info.writeSymb);
+            // move left or right
+            if (info.move == 'R') {
+                tape.moveRight();
+            }
+            else {
+                tape.moveLeft();
+            }
+            currState = info.state.name;
         }
 
     }
