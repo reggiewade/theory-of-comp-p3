@@ -10,7 +10,7 @@ import java.util.*;
 public class TMState {
     private Map<Integer, Transition> transitions;
     // assuming states are 0, 1, 2, ..., etc
-    int name;
+    private int name;
 
     /* 
      * Call super constructor to
@@ -21,6 +21,10 @@ public class TMState {
     public TMState(int name) {
         this.name = name;
         this.transitions = new HashMap<>();
+    }
+
+    public int getName () {
+        return name;
     }
 
     /**
@@ -39,5 +43,13 @@ public class TMState {
      */
     public Transition toState(Integer symbol) {
         return transitions.get(symbol);
+    }
+
+    /**
+     * Returns the map of transitions for this state.
+     * @return a map where the key is the symbol and the value is the corresponding Transition object
+     */
+    public Map<Integer, Transition> getTransitions() {
+        return transitions;
     }
 }

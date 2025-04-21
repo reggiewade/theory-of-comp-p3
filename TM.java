@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +24,6 @@ public class TM {
 
     public TM () {
         sigma  = new LinkedHashSet<>();
-        sigma.add(0);
         startState = null;
         states = new LinkedHashMap<>();
         finalState = null;
@@ -134,10 +135,12 @@ public class TM {
         return state != null && state.equals(finalState);
     }
 
-    // TODO: need to test this (i hope it work)
-    public void runTM () {
+    // TODO: add error checking in general just in case
+    public void runTM (String startingTape) {
+        // set start tape
+        tape.initTape(startingTape);
         // set starting state
-        int currState = startState.name;
+        int currState = startState.getName();
 
         while (!isFinal(currState)) {
             // get current symbol
@@ -156,9 +159,68 @@ public class TM {
             else {
                 tape.moveLeft();
             }
-            currState = info.state.name;
+            currState = info.state.getName();
         }
+    }
 
+    // TODO: figure out what the output is supposed to look like + add a timeout if output is too large
+    // print TM
+    public void printTape() {
+        HashMap<Integer, Integer> finalTape = tape.getTape();
+        // get keys
+        List<Integer> keys = new ArrayList<>(finalTape.keySet());
+        Collections.sort(keys);
+        // iterate through keys and print
+        int sumSymb = 0;
+        for (int i = 0; i < keys.size(); i++) {
+            System.out.print(finalTape.get(keys.get(i)));
+            sumSymb += finalTape.get(keys.get(i));
+        }
+        System.out.println();
+        System.out.println("output length: " + keys.size());
+        System.out.println("sum of symbols: " + sumSymb);
+    }
+
+    /**
+     * Prints all useful information about the Turing Machine.
+     */
+    public void printTMInfo() {
+        System.out.println("Turing Machine Information:");
+        
+        // Print tape alphabet
+        System.out.println("Tape Alphabet (Sigma): " + sigma);
+        
+        // Print all states
+        System.out.println("States:");
+        for (Integer stateId : states.keySet()) {
+            System.out.println("  State ID: " + stateId);
+        }
+        
+        // Print start state
+        if (startState != null) {
+            System.out.println("Start State: " + startState.getName());
+        } else {
+            System.out.println("Start State: Not set");
+        }
+        
+        // Print final state
+        if (finalState != null) {
+            System.out.println("Final State: " + finalState.getName());
+        } else {
+            System.out.println("Final State: Not set");
+        }
+        
+        // Print transitions
+        System.out.println("Transitions:");
+        for (Integer stateId : states.keySet()) {
+            TMState state = states.get(stateId);
+            System.out.println("  From State " + stateId + ":");
+            for (Integer symbol : state.getTransitions().keySet()) {
+                Transition transition = state.getTransitions().get(symbol);
+                System.out.println("    On Symbol " + symbol + " -> Write " + transition.writeSymb +
+                                   ", Move " + transition.move + ", To State " + transition.state.getName());
+            }
+        }
     }
 
 }

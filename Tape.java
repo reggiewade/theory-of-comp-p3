@@ -11,13 +11,37 @@ import java.util.HashMap;
  */
 public class Tape {
     private HashMap<Integer, Integer> tape = new HashMap<>();
-    int head = 0;
+    private int head = 0;
     
     /**
      * Constructs a new Tape with the head initialized at position 0.
      */
     public Tape () {
         this.head = 0;
+    }
+
+    public HashMap<Integer, Integer> getTape () {
+        return tape;
+    }
+
+
+    public void initTape (String startingTape) {
+        // if no starting string, initialize the tape to 0
+        if (startingTape == null) {
+            tape.put(head, 0);
+            return;
+        }
+        for (int i = 0; i < startingTape.length(); i++) {
+            // write to head
+            tape.put(head, Character.getNumericValue(startingTape.charAt(i)));
+            // move head 'R'
+            moveRight();
+        }
+        // move head back to start
+        for (int i = 0; i < startingTape.length(); i++) {
+            moveLeft();
+        }
+        return;
     }
 
     /**
@@ -60,4 +84,6 @@ public class Tape {
     public int getHeadPosition() {
         return head;
     }
+
+    
 }

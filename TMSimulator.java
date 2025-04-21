@@ -40,14 +40,22 @@ public class TMSimulator {
             }
         }
         reader.close();
-
+        
         // TM initilization
         TM tm = new TM();
-         
+
         // Parse number of states and sigma length (number of non-blank input symbols)
         int numStates = Integer.parseInt(lines.get(0));
         int sigmaLen = Integer.parseInt(lines.get(1)) + 1;    // add 1 for extra 0
-        
+
+        // add states
+        for (int i = 0; i < numStates; i++) {
+            tm.addState(i);
+        }
+        // add sigma
+        for (int i = 0; i < sigmaLen; i++) {
+            tm.addSigma(i);
+        }
         Integer currState = 0;
         int counter = 0;
 
@@ -62,21 +70,17 @@ public class TMSimulator {
             counter += sigmaLen;
         }
 
-    
-        // // Build and print the tape content from visited cells
-        // int min = Integer.MAX_VALUE;
-        // int max = Integer.MIN_VALUE;
-        // for (int pos : tm.tape.tape.keySet())
-        // {
-        //     min = Math.min(min, pos);
-        //     max = Math.max(max, pos);
-        // }
-
-        // StringBuilder output = new StringBuilder();
-        // for (int i = min; i <= max; i++) 
-        // {
-        //     output.append(tm.tape.tape.getOrDefault(i, 0));
-        // }
-    
+        // check if starting tape
+        String startingTape = null;
+        if (!(lines.get(lines.size() - 1).contains(","))) {
+            startingTape = lines.get(lines.size() - 1);
+        }
+        // set start and final state
+        tm.setStart();
+        tm.setFinal();
+        // initialize TM
+        // tm.printTMInfo();
+        tm.runTM(startingTape);
+        tm.printTape();
     }
 }
