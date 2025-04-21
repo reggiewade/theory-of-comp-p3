@@ -18,6 +18,7 @@ public class TM {
     private TMState startState;
     private HashMap<Integer, TMState> states;
     private TMState finalState;
+    private Tape tape;
 
     public TM () {
         sigma  = new LinkedHashSet<>();
@@ -25,6 +26,7 @@ public class TM {
         startState = null;
         states = new LinkedHashMap<>();
         finalState = null;
+        tape = new Tape();
     }
 
     /**
@@ -43,6 +45,15 @@ public class TM {
      */
     public TMState getStart () {
         return startState;
+    }
+
+    /**
+     * Gets the start state.
+     *
+     * @return the final TMState
+     */
+    public TMState getFinal () {
+        return finalState;
     }
 
     /**
@@ -84,7 +95,7 @@ public class TM {
      * @param fromState the current state
      * @param toState the next state
      * @param onSymb the symbol read on the tape
-     * @param move the direction to move (L or R)
+     * @param move the direction to move ('L' or 'R')
      * @return true if the transition was successfully added
      */
     public boolean addTransition(Integer fromState, Integer toState, Integer onSymb, char move) {
@@ -96,6 +107,19 @@ public class TM {
         from.addTransition(onSymb, new Transition(move, states.get(toState)));
         
         return true;
+    }
+    
+    /**
+     * Gets the next state based on the current state and the symbol read on the tape.
+     *
+     * @param currentState the current state
+     * @param onSymb the symbol read on the tape
+     * @return the next TMState, or null if no valid transition exists
+     */
+    public Transition getNextState(Integer currentState, Integer onSymb) {
+        if (!states.containsKey(currentState)) return null;
+        TMState state = states.get(currentState);
+        return state.toState(onSymb);
     }
 
     /**
@@ -109,5 +133,23 @@ public class TM {
         return state != null && state.equals(finalState);
     }
 
-    
+    public void runTM () {
+        // set state
+        int currState = startState.name;
+        // get current symbol
+        int symb = tape.read();
+        // get next state
+        Transition info = getNextState(currState, symb);
+        // write to current state
+        //tape.write();
+        // move left or right
+        if (info.move == 'R') {
+            tape.moveRight();
+        }
+        else {
+            tape.moveLeft();
+        }
+
+    }
+
 }

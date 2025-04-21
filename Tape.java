@@ -10,7 +10,7 @@ import java.util.HashMap;
  *          Reggie Wade
  */
 public class Tape {
-    private HashMap<Integer, Character> tape = new HashMap<>();
+    private HashMap<Integer, Integer> tape = new HashMap<>();
     int head = 0;
     
     /**
@@ -23,10 +23,10 @@ public class Tape {
     /**
      * Reads the character under the tape head.
      *
-     * @return the character at the current head position, '_' if blank
+     * @return the character at the current head position, 0 if blank
      */
-    public char read() {
-        return tape.getOrDefault(head, '_');
+    public int read() {
+        return tape.getOrDefault(head, 0);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Tape {
      *
      * @param symbol the character to write to the tape
      */
-    public void write(char symbol) {
+    public void write(int symbol) {
         tape.put(head, symbol);
     }
 

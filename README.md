@@ -1,4 +1,4 @@
-# Turing Machine Simulator
+# P3 - Turing Machine Simulator
 
 ## Authors
 - Vladyslav (Vlad) Maliutin

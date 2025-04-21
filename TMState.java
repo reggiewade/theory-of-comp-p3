@@ -37,7 +37,7 @@ public class TMState {
      * @param symbol is the symbol to transition to toState
      * @return the next from the symbol
      */
-    public Transition toStates(Integer symbol) {
+    public Transition toState(Integer symbol) {
         return transitions.get(symbol);
     }
 }
