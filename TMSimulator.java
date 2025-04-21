@@ -52,10 +52,12 @@ public class TMSimulator {
         for (int i = 0; i < numStates; i++) {
             tm.addState(i);
         }
+
         // add sigma
         for (int i = 0; i < sigmaLen; i++) {
             tm.addSigma(i);
         }
+
         Integer currState = 0;
         int counter = 0;
 
@@ -75,6 +77,7 @@ public class TMSimulator {
         if (!(lines.get(lines.size() - 1).contains(","))) {
             startingTape = lines.get(lines.size() - 1);
         }
+        
         // set start and final state
         tm.setStart();
         tm.setFinal();

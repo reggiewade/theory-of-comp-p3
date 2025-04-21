@@ -135,36 +135,50 @@ public class TM {
         return state != null && state.equals(finalState);
     }
 
-    // TODO: add error checking in general just in case
-    public void runTM (String startingTape) {
-        // set start tape
+    /**
+     * Runs the Turing Machine with the given input tape.
+     * Executes transitions until the final state is reached.
+     *
+     * @param startingTape the input string on the tape; null or empty means blank tape
+     */
+    public void runTM (String startingTape) 
+    {
         tape.initTape(startingTape);
-        // set starting state
         int currState = startState.getName();
 
-        while (!isFinal(currState)) {
-            // get current symbol
+        while (!isFinal(currState)) 
+        {
             int symb = tape.read();
-            // get next state
             Transition info = getNextState(currState, symb);
-            if (info == null) {
-                throw new IllegalStateException("No valid transition found for state " + currState + " and symbol " + symb);
+
+            if (info == null) 
+            {
+                System.err.println("Error: No transition defined for state " + currState + " on symbol " + symb);
+                return;
             }
-            // write to current state
+
             tape.write(info.writeSymb);
-            // move left or right
-            if (info.move == 'R') {
-                tape.moveRight();
+            switch (info.move) 
+            {
+                case 'R':
+                    tape.moveRight();
+                    break;
+                case 'L':
+                    tape.moveLeft();
+                    break;
+                default:
+                    System.err.println("Error: Invalid move direction '" + info.move + "'");
+                    return;
             }
-            else {
-                tape.moveLeft();
-            }
+
             currState = info.state.getName();
         }
     }
 
-    // TODO: figure out what the output is supposed to look like + add a timeout if output is too large
-    // print TM
+    /**
+     * Prints the contents of the visited tape cells from leftmost to rightmost.
+     * The output is a single string followed by a newline.
+     */
     public void printTape() {
         HashMap<Integer, Integer> finalTape = tape.getTape();
         // get keys
