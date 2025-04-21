@@ -1,3 +1,5 @@
+package tm;
+
 /**
  * This class serves as an easy way to keep transition
  * information together such as 'L' and 'R' movement
