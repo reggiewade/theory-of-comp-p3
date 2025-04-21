@@ -59,3 +59,9 @@ This project also gave us insight into how theoretical models like TMs can be im
 Make sure all `.java` files are in the same directory. Then compile with:
 ```bash
 javac *.java
+```
+
+Run the program with:
+```bash
+java TMSimulator <input_file>
+```
