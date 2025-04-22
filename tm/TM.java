@@ -187,14 +187,10 @@ public class TM {
         List<Integer> keys = new ArrayList<>(finalTape.keySet());
         Collections.sort(keys);
         // iterate through keys and print
-        int sumSymb = 0;
         for (int i = 0; i < keys.size(); i++) {
             System.out.print(finalTape.get(keys.get(i)));
-            sumSymb += finalTape.get(keys.get(i));
         }
         System.out.println();
-        System.out.println("output length: " + keys.size());
-        System.out.println("sum of symbols: " + sumSymb);
     }
 
     /**

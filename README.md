@@ -46,13 +46,15 @@ This project implements a **bi-infinite deterministic Turing Machine simulator**
 
 ## Reflection
 
-Working on this Turing Machine simulator helped reinforce our understanding of automata theory and low-level computation models. By breaking down the simulation into clearly defined classes like `TM`, `TMState`, and `Tape`, we got to apply core object-oriented principles in a meaningful way.
+Working on this Turing Machine simulator helped reinforce our understanding of automata theory and low-level computation models. By breaking down the simulation into clearly defined classes like `TM`, `TMState`, `Transition`, and `Tape`, we got to apply core object-oriented principles in a meaningful way.
 
-One of the most interesting parts was designing the tape as a bi-infinite structure using a `HashMap`. It challenged our usual thinking around fixed-size arrays and made us think about dynamic memory access patterns. Parsing the input file and ensuring transitions were correctly assigned based on their position in the file also required careful logic.
+One of the most interesting parts was designing the tape as a bi-infinite structure using a `HashMap`. It made us think about how the tape worked in an intuitive way with the keys being the head as it moved through the turing machine.  The time complexity is at best O(1) to access an element of a hashmap and O(N) time complexity at worst.  We don't think this was the most effective implementation, but it works and it's simple to understand and write.
 
-Debugging transitions and verifying correct halting behavior gave us good experience with edge cases and off-by-one indexing—things that can easily go wrong in simulations like this. In the end, it was satisfying to see the Turing Machine halt and print the right output.
+We thought the hardest part of creating the project was actually the parsing of the text file.  The logic was a bit difficult to get down even though we had a good idea of how the file was structured.  Specifically incrementing the state only after |sigma| number of transition information was consumed was difficult to represent in code.  Overall, since this is only my second semester of using java, the file reading was the hardest.
 
-This project also gave us insight into how theoretical models like TMs can be implemented in code, bridging the gap between abstract CS concepts and real-world programming.
+Surprisingly the easiest part of the code was the actual logic for the turing machine itself, all we had to do was think through the steps and represent each in code.  Once we had everything in its correct place in code, we just had to access them at a certain time.
+
+This project gave us some insight into how turing machines are implemented and increased our understanding of them.  We thought this project was great!
 
 
 ## Compilation Instructions
